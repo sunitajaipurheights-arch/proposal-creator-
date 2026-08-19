@@ -1,0 +1,521 @@
+/* ============================================================
+   Proposal document — Jaipur Heights (red brand theme)
+   Modular multi-sheet layout: a cover page + one page per option.
+   Each .sheet maps to an A4 page and page-breaks in print/PDF.
+   ============================================================ */
+.doc {
+  --doc-w: 900px;
+  --sheet-h: 1273px; /* A4 ratio at 900px width */
+  --dred: #e11b22;
+  --dred-dark: #b3131a;
+  --dred-darker: #7f0c12;
+  --dink: #1c1c1e;
+  --dmut: #6b7075;
+  --dgold: #c9a24b;
+  --dline: #e7e7ea;
+  --dtint: #fdecec;
+  --dtint2: #f8d2d3;
+
+  width: var(--doc-w);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  color: var(--dink);
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+.sheet {
+  width: var(--doc-w);
+  min-height: var(--sheet-h);
+  background: #fff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
+}
+
+/* ---------- Running header / footer ---------- */
+.sheet-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 40px;
+  border-bottom: 2px solid var(--dtint2);
+}
+.sheet-head img {
+  width: 40px;
+  height: 34px;
+  object-fit: contain;
+}
+.sheet-head .sh-name {
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.sheet-head .sh-name small {
+  display: block;
+  font-weight: 600;
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  color: var(--dmut);
+  margin-top: 3px;
+}
+.sheet-head .sh-tag {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--dred);
+  color: #fff;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  padding: 7px 14px;
+  border-radius: 30px;
+}
+.sheet-head .sh-page {
+  margin-left: 14px;
+  font-weight: 800;
+  color: var(--dtint2);
+  font-size: 22px;
+}
+
+.sheet-foot {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 40px;
+  border-top: 2px solid var(--dtint2);
+  font-size: 12px;
+  color: var(--dmut);
+}
+.sheet-foot .ff-tag {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  color: var(--dred);
+  font-size: 14px;
+}
+.sheet-foot .ff-right {
+  margin-left: auto;
+  font-weight: 700;
+  color: var(--dink);
+}
+
+/* ============================================================
+   COVER SHEET
+   ============================================================ */
+.cover {
+  padding: 0;
+}
+.cover-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 34px 44px 26px;
+}
+.cover-top img {
+  width: 68px;
+  height: 58px;
+  object-fit: contain;
+}
+.cover-top .ct-brand {
+  line-height: 1.1;
+}
+.cover-top .ct-brand b {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+.cover-top .ct-brand small {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  color: var(--dmut);
+  margin-top: 4px;
+}
+.cover-top .ct-meta {
+  margin-left: auto;
+  text-align: right;
+  font-size: 12px;
+  color: var(--dmut);
+  line-height: 1.6;
+}
+.cover-top .ct-meta b {
+  color: var(--dink);
+}
+
+/* Hero band */
+.cover-hero {
+  position: relative;
+  margin: 6px 0 0;
+  background: linear-gradient(135deg, var(--dred-darker), var(--dred-dark) 55%, var(--dred));
+  color: #fff;
+  padding: 54px 44px 58px;
+  overflow: hidden;
+}
+.cover-hero::after {
+  content: '';
+  position: absolute;
+  right: -80px;
+  top: -80px;
+  width: 320px;
+  height: 320px;
+  border: 40px solid rgba(255, 255, 255, 0.06);
+  border-radius: 50%;
+}
+.cover-hero .ch-kicker {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  color: var(--dgold);
+  text-transform: uppercase;
+}
+.cover-hero h1 {
+  font-size: 74px;
+  font-weight: 800;
+  line-height: 0.94;
+  margin-top: 10px;
+}
+.cover-hero .ch-for {
+  font-size: 16px;
+  letter-spacing: 0.4em;
+  font-weight: 600;
+  opacity: 0.82;
+  margin: 14px 0 8px;
+}
+.cover-hero .ch-client {
+  font-size: 46px;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.cover-hero .ch-loc {
+  margin-top: 16px;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Hero photo strip */
+.cover-photo {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  object-position: center 42%;
+  display: block;
+}
+
+/* Contact card */
+.cover-contact {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 20px;
+  align-items: start;
+  padding: 34px 44px;
+}
+.cover-contact .cc-avatar {
+  grid-row: span 3;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: var(--dtint);
+  color: var(--dred);
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--dtint2);
+}
+.cover-contact .cc-name {
+  font-size: 26px;
+  font-weight: 800;
+}
+.cover-contact .cc-company {
+  color: var(--dred);
+  font-weight: 700;
+  font-size: 15px;
+  margin-top: 2px;
+}
+.cover-contact .cc-lines {
+  margin-top: 8px;
+  color: #45474b;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.cover-contact .cc-lines .cc-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin-bottom: 4px;
+}
+.cover-contact .cc-lines svg {
+  color: var(--dred);
+  flex: none;
+  margin-top: 2px;
+}
+
+/* Highlights strip */
+.cover-highlights {
+  margin-top: auto;
+  background: linear-gradient(135deg, var(--dred-darker), var(--dred-dark));
+  color: #fff;
+  padding: 26px 44px 30px;
+}
+.cover-highlights .chi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.chi-item {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+}
+.chi-item .chi-ico {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid var(--dgold);
+  color: var(--dgold);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.chi-item h4 {
+  font-size: 13px;
+  font-weight: 800;
+}
+.chi-item p {
+  margin: 3px 0 0;
+  font-size: 11px;
+  line-height: 1.4;
+  opacity: 0.86;
+}
+.cover-tagline {
+  text-align: center;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--dgold);
+}
+
+/* ============================================================
+   OPTION SHEET
+   ============================================================ */
+.sheet-main {
+  padding: 30px 40px 10px;
+}
+.opt-title {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 27px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.opt-title .ot-no {
+  color: var(--dred);
+}
+.opt-sub {
+  color: var(--dmut);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.opt-accent {
+  height: 4px;
+  width: 66px;
+  background: var(--dred);
+  border-radius: 3px;
+  margin-bottom: 22px;
+}
+
+.opt-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+.opt-cols.has-scope {
+  grid-template-columns: 1.05fr 1fr;
+}
+
+.spec-table {
+  border: 1px solid var(--dline);
+  border-radius: 12px;
+  overflow: hidden;
+  align-self: start;
+}
+.spec-line {
+  display: grid;
+  grid-template-columns: 30px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--dline);
+}
+.spec-line:nth-child(even) {
+  background: #faf8f8;
+}
+.spec-line:last-child {
+  border-bottom: none;
+}
+.spec-line .sico {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--dtint);
+  color: var(--dred);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.spec-line .slabel {
+  color: #3a3a3c;
+}
+.spec-line .sval {
+  font-weight: 800;
+  text-align: right;
+}
+
+.scope-box {
+  border: 1px solid var(--dline);
+  border-radius: 12px;
+  padding: 16px 18px;
+  align-self: start;
+}
+.scope-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--dred-dark);
+  margin-bottom: 12px;
+}
+.scope-item {
+  display: flex;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px dashed var(--dline);
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+.scope-item:last-child {
+  border-bottom: none;
+}
+.scope-item .snum {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--dred);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+}
+
+/* Photos */
+.opt-photos {
+  margin-top: 26px;
+}
+.photos-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--dred-dark);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+.photos-head::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(to right, var(--dgold), transparent);
+}
+.photos-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+.photo-card {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--dline);
+  break-inside: avoid;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+.photo-card img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  display: block;
+}
+.photo-card .pcap {
+  background: var(--dred-dark);
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 8px 4px;
+}
+
+/* ---------- Print: one sheet per page ---------- */
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-host {
+    padding: 0 !important;
+    background: #fff !important;
+  }
+  .doc {
+    width: 100%;
+    gap: 0;
+    box-shadow: none;
+  }
+  .sheet {
+    width: 100%;
+    min-height: 100vh;
+    box-shadow: none;
+    break-after: page;
+    page-break-after: always;
+  }
+  .sheet:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+  /* Undo the on-screen fit-scaling so the PDF prints at full A4 size */
+  .screen-fit {
+    width: auto !important;
+    height: auto !important;
+  }
+  .screen-fit-inner {
+    transform: none !important;
+    width: auto !important;
+  }
+}
