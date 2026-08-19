@@ -476,7 +476,7 @@
   padding: 8px 4px;
 }
 
-/* ---------- Print: one sheet per page ---------- */
+/* ---------- Print: one sheet per page, full colour ---------- */
 @media print {
   @page {
     size: A4;
@@ -493,23 +493,7 @@
     padding: 0 !important;
     background: #fff !important;
   }
-  .doc {
-    width: 100%;
-    gap: 0;
-    box-shadow: none;
-  }
-  .sheet {
-    width: 100%;
-    min-height: 100vh;
-    box-shadow: none;
-    break-after: page;
-    page-break-after: always;
-  }
-  .sheet:last-child {
-    break-after: auto;
-    page-break-after: auto;
-  }
-  /* Undo the on-screen fit-scaling so the PDF prints at full A4 size */
+  /* Undo the on-screen fit-scaling wrappers (from the responsive view) */
   .screen-fit {
     width: auto !important;
     height: auto !important;
@@ -517,5 +501,35 @@
   .screen-fit-inner {
     transform: none !important;
     width: auto !important;
+  }
+  /* Render the document at its NATIVE 900px design width and scale the whole
+     thing down to A4 with `zoom` (which — unlike `transform` — affects layout,
+     so page breaks land correctly). 900px → ~A4 width; each 1273px sheet → one
+     A4 page. This avoids the reflow that was pushing sheets onto a 2nd page. */
+  .doc {
+    width: 900px;
+    zoom: 0.88;
+    gap: 0;
+    box-shadow: none;
+    margin: 0 auto;
+  }
+  .sheet {
+    width: 900px;
+    min-height: 1273px;
+    box-shadow: none;
+    break-after: page;
+    page-break-after: always;
+    break-inside: avoid;
+  }
+  .sheet:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+  /* Force background colours/gradients to print (the red bands, footer, etc.).
+     Without this the browser drops backgrounds unless "Background graphics" is
+     manually ticked in the print dialog. */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 }
